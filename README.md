@@ -4,7 +4,7 @@ Python repository to build and work with function calling AI Agents.
 
 To use the package, first clone the repository:
 ```
-git clone 
+git clone git@github.com:srikantjyrmn/autologie-prod.git
 ```
 
 Move into the directory, then activate the poetry environment:
@@ -22,6 +22,7 @@ Use the package
 ```
 from autologie import AgentClient
 from autologie.agent_configs import omniscience, character_agent, function_calling_agent
+
 chat_agent = AgentClient(**omniscience)
 json_agent = AgentClient(**character_agent)
 function_calling_agent = AgentClient(**function_calling_agent)
