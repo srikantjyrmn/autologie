@@ -72,4 +72,7 @@ gradio_chat_box = gr.ChatInterface(
     #examples=[{'text': "Hello", 'files': []}],
     additional_inputs=[agent_type_selector, system_prompt_input, slider, model_name_selector],
     autofocus=False
-).launch()
+)
+
+if __name__ == '__main__':
+    gradio_chat_box.launch()
