@@ -45,8 +45,7 @@ def chat(message, history, agent_type, system_prompt, t, m):
     
     response = state['llm'].chat(prompt)
     response_str = response.assistant_message
-    response = f"{response_str} You uploaded {num_files} files\n\nSystem prompt: {system_prompt}\nMessage: {prompt}." + f"Agent config: {state['llm'].response_spec}"
-    
+    response = f"{response_str}"# You uploaded {num_files} files\n\nSystem prompt: {system_prompt}\nMessage: {prompt}." + f"Agent config: {state['llm'].response_spec}"
     return response
 
 # Gradio interface setup
@@ -72,7 +71,4 @@ gradio_chat_box = gr.ChatInterface(
     #examples=[{'text': "Hello", 'files': []}],
     additional_inputs=[agent_type_selector, system_prompt_input, slider, model_name_selector],
     autofocus=False
-)
-
-if __name__ == '__main__':
-    gradio_chat_box.launch()
+).launch()

@@ -1,6 +1,6 @@
-from autologie.llms.tools.objects import KnowledgeGraph, Character
+from autologie.tools.objects import KnowledgeGraph, Character
 from autologie.llms.response_handlers import PromptManager
-from autologie.llms.tools.nous_functions import convert_to_openai_tool, google_search_and_scrape, get_current_stock_price
+from autologie.tools.nous_functions import convert_to_openai_tool, google_search_and_scrape, get_current_stock_price
 from pydantic import BaseModel
 STRUCTURED_AGENT_SYSTEM_PROMPT = """You are a helpful assistant that answers in JSON. Here's the json schema you must adhere to:\n<schema>\n{pydantic_schema}\n<schema>"
 """

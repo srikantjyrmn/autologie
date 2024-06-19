@@ -26,7 +26,7 @@ from .types import (
 from .types.helpers.gbnf_grammar_from_pydantic_models import generate_gbnf_grammar_from_pydantic_models
 
 from .utils import extract_json_from_markdown
-from .tools import nous_functions as available_functions
+from ..tools import nous_functions as available_functions
 from .inference_logger import inference_logger
 
 
