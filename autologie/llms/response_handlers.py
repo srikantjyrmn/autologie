@@ -329,32 +329,9 @@ def parse_tool_call_from_response(
             tool_message = ""
             for tool_call in tool_calls:
                 validation, message = validate_function_call_schema(tool_call, tool_signatures)
-                if validation:
-                    try:
-                        print(f"Executing Function call {tool_call}")
-                        function_response = execute_function_call(tool_call, available_functions)
-                        print(function_response)
-                        tool_message += f"<tool_response>\n{function_response}\n</tool_response>\n"
-                        #inference_logger.info(f"Here's the response from the function call: {tool_call.get('name')}\n{function_response}")
-                    except Exception as e:
-                        #inference_logger.info(f"Could not execute function: {e}")
-                        tool_message += f"""<tool_response>
-                        There was an error when executing the function: {tool_call.get('name')}
-                        Here's the error traceback: {e}
-                        Please call this function again with correct arguments within XML tags <tool_call></tool_call>
-                        </tool_response>
-                    """
-                else:
-                    print(f"Aila kay hua {validation}")
-                    #inference_logger.info(message)
-                    tool_message += f"""<tool_response>
-                    There was an error validating function call against function signature: {tool_call.get('name')}
-                    Here's the error traceback: {message}
-                    Please call this function again with correct arguments within XML tags <tool_call></tool_call>
-                </tool_response>
-                """
+                tool_message = message
             print(tool_message)
-            get_feedback = True
+            get_feedback = False
             return validation, get_feedback, tool_calls, tool_message
         get_feedback=False
         return validation, get_feedback, tool_calls, response

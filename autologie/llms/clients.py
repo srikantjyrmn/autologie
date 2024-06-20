@@ -60,7 +60,7 @@ class ApiConnector:
         else:
             self.headers = {"Content-Type": "application/json"}
 
-        self.inference_logger.info(f"""{__name__}:
+        self.inference_logger.info(f"""ApiConnector says:
         Initializing Connection to {self.base_url} with header:{json.dumps(
             self.headers,sort_keys=True,
                 indent=4,
@@ -93,16 +93,15 @@ class ApiConnector:
         Returns:
             json: JSON object of the Api Response
         """
-        self.inference_logger.info(
-            f"""{__name__} {datetime.now()}: ApiConnector Says:
-            Getting response from {self.base_url} for payload :
-                {json.dumps(payload,sort_keys=True,
-                    indent=4,
-                    separators=(',', ': '))
-                }
-            with headers 
-                {self.headers}
-            \n"""
+        self.inference_logger.info(f"""ApiConnector Says:
+        Getting response from {self.base_url} for payload :
+            {json.dumps(payload,sort_keys=True,
+                indent=4,
+                separators=(',', ': '))
+            }
+        with headers 
+            {self.headers}
+        """
         )
         try:
             response = requests.post(
@@ -146,7 +145,8 @@ class ApiClient:
         else:
             from .inference_logger import inference_logger
             self.inference_logger = inference_logger
-        self.inference_logger.info(f"""Initializing an API Endpoint with specs:
+        self.inference_logger.info(f"""ApiClinet says:
+            Initializing an API Endpoint with specs:
               {json.dumps(self.api_spec.__dict__,
               sort_keys=True,
                 indent=4,
@@ -194,7 +194,7 @@ class ApiClient:
                 tool_call = tool_choice,
                 available_functions=available_functions
             )
-        self.inference_logger.info(f"Running Inference with ResponseMode: {response_spec.response_mode}")
+        self.inference_logger.info(f"ApiConnector says: Running Inference with ResponseMode: {response_spec.response_mode}")
         if self.api_spec.endpoint_type == 'completion':
             payload = self.payload_handler(
                     model = self.api_spec.model,
@@ -206,8 +206,9 @@ class ApiClient:
                     tools = response_spec.tools
                 ).payload_dict
             api_response = self.get_api_response(payload)
-            self.inference_logger.info(f"""\n Got Response Object: {api_response}.
-                Not Processing Completion and Validating. \n""")
+            self.inference_logger.info(f"""ApiConnector says:
+                Got Response Object: {api_response}.
+            """)
         else:
             api_response = self.api.get_response(
                 payload = self.payload_handler(
@@ -217,75 +218,4 @@ class ApiClient:
                 ).payload_dict
             )
             self.inference_logger.info(api_response)
-        return api_response#self.response_object_handler(**api_response)
-
-    def run_inference(self,
-                    messages: List[ChatMessage],
-                    response_format : None|str| Dict = None,
-                    tools : None | List = None,
-                    tool_choice : None | str = None,
-                    available_functions = None,
-                    **kwargs) -> ChatApiResponse:
-        """Get responses from an API Endpoint"""
-        try:
-            response_spec = ResponseSpec(
-                response_format = response_format,
-                tools = tools,
-                tool_call = tool_choice,
-                available_functions=available_functions
-            )
-            self.inference_logger.info(f"Running Inference with ResponseMode: {response_spec.response_mode}")
-
-            if self.api_spec.endpoint_type == 'completion':
-                validated = False
-                n_tries = 5
-                while not validated:
-                    # Format prompt and get response
-                    payload = self.payload_handler(
-                            model = self.api_spec.model,
-                            prompt = self.prompt_formatter.format_conversation(
-                                [x.message_dict for x in messages]
-                            ),
-                            grammar = self.grammar_handler(response_spec = response_spec),
-                            response_format = response_spec.response_format,
-                            tools = response_spec.tools
-                        ).payload_dict
-                    api_response = self.get_api_response(payload)
-                    self.inference_logger.info(f"""\n Got Response Object: {api_response}.
-                        Processing Completion and Validating. \n""")
-
-                    # Validate Completion according to response type
-                    completion_validation, tool_calls = response_validation_handler(
-                        completion = api_response.choices[0].text,
-                        response_spec = response_spec
-                    )
-                    self.inference_logger.info(f"***Got validation object {completion_validation}")
-                    n_tries -= 1
-
-                    # If validated, return response
-                    if completion_validation.validation and not completion_validation.get_feedback:
-                        validated = True
-                        self.inference_logger.info(f"\n Got Validation: {completion_validation}. Returning \n")
-                        return completion_validation#, api_response, tool_calls
-                    # If not validated, continue loop
-                    #print(f"Object validation failed. {n_tries} tries left. Trying again.\n\n\n\n\n\n {completion_validation.assistant_message} \n\n\n\n")
-                    messages.append(ToolMessage(content = completion_validation.assistant_message))
-                    continue
-                # If n_tries is exceeded, returns the last available response
-                return completion_validation#.validation, completion_validation.error_message, None
-
-            # In case it's a chat endpoint, we're assuming the responses will already be validated
-            #TODO: Handle this case as well. Can still run validation on teh tools returned.
-            #TODO: JSON will still need to be validated
-            api_response = self.api.get_response(
-                payload = self.payload_handler(
-                    messages = [x.message_dict for x in messages],
-                    model = self.api_spec.model,
-                    **kwargs
-                ).payload_dict
-            )
-            self.inference_logger.info(api_response)
-            return self.response_object_handler(**api_response)
-        except requests.exceptions.RequestException as e:
-            print(f"Request failed: {e}")
-            return None
+        return api_response
