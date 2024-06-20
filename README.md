@@ -27,3 +27,7 @@ chat_agent = AgentClient(**omniscience)
 json_agent = AgentClient(**character_agent)
 function_calling_agent = AgentClient(**function_calling_agent)
 ```
+
+# Pyreverse Classes and packages
+![classes](./classes_autologie_vis.png)
+![packages](./packages_autologie_vis.png)

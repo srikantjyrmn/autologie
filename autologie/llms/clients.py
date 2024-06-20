@@ -11,10 +11,10 @@ from .types import (
     CompletionApiResponse, ChatApiResponse,
     LlamacppCompletionPayload,
     OllamaCompletionPayload,
-    OpenaiChatPayload
+    OpenaiChatPayload, ApiClientHandlers
 )
 from .response_handlers import (
-    response_object_handler
+    response_object_handler, get_settings_for_endpoint
 )
 
 from .prompt_handlers import(
@@ -127,6 +127,7 @@ class ApiClient:
     api_spec : ApiClientSpec
     payload_handler: Union[LlamacppCompletionPayload, OllamaCompletionPayload, OpenaiChatPayload]
     response_object_handler: Union[CompletionApiResponse, ChatApiResponse]
+    handlers: ApiClientHandlers
     def __init__(
         self,
         api_spec: None | ApiClientSpec = None,
@@ -168,7 +169,7 @@ class ApiClient:
             server = self.api_spec.server
         )
         self.grammar_handler = partial(grammar_handler, server = self.api_spec.server)
-
+        self.handler = get_settings_for_endpoint(server=self.api_spec.server, endpoint_type=self.api_spec.endpoint_type)
     def get_api_response(self, payload) -> CompletionApiResponse | ChatApiResponse:
         """Gets a response from an API and returns a standard ApiResponse object"""
         api_response = self.api.get_response(
