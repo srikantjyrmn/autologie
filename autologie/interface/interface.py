@@ -53,13 +53,13 @@ system_prompt_input = gr.Textbox("", label="System Prompt", lines=10, interactiv
 model_name_selector = gr.Textbox("llamacpp/nous_hermes", label="Model Name")
 slider = gr.Slider(10, 100, render=False)
 agent_type_selector = gr.Dropdown(
-    choices=['OmniscientSuperIntelligence', 'DreamAnalyst', 'functionCaller', 'StructuredSchema'],
-    value="DreamAnalyst"
+    choices=list(agent_config_map.keys()),
+    value="functionCaller"
 )
 
 gradio_chat_box = gr.ChatInterface(
     chat,
-    chatbot=gr.Chatbot(height=300),
+    chatbot=gr.Chatbot(),#height=300),
     title="Model Chat Interface",
     description="Standard",
     theme="soft",

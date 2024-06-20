@@ -315,7 +315,7 @@ def parse_objects_from_response(response, expected_schema):
 
 def parse_tool_call_from_response(
     response: str, 
-    tool_signatures: List[FunctionSignature], 
+    tool_signatures: List[FunctionSignature],
     available_functions = available_functions):
     """Parses tool call from an api response"""
     get_feedback=True
