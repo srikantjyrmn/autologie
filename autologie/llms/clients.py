@@ -1,23 +1,20 @@
 """Class to connect to LanguageModel APIEndpoints and extract structured / unstructured responses.
 """
-
 import json
-from datetime import datetime
 from typing import Union, List, Dict, Generator
 from functools import partial
 import requests
 
 from .types import (
     ApiClientSpec, ResponseSpec,
-    ChatMessage, ToolMessage,
+    ChatMessage,
     CompletionApiResponse, ChatApiResponse,
     LlamacppCompletionPayload,
     OllamaCompletionPayload,
     OpenaiChatPayload
 )
 from .response_handlers import (
-    response_object_handler,
-    response_validation_handler
+    response_object_handler
 )
 
 from .prompt_handlers import(
@@ -180,7 +177,7 @@ class ApiClient:
         self.inference_logger.info(f"Got Response: {api_response}")
         return self.response_object_handler(api_response)
 
-    def run_unvalidated_inference(self,
+    def run_inference(self,
                     messages: List[ChatMessage],
                     response_format : None|str| Dict = None,
                     tools : None | List = None,

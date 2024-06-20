@@ -1,13 +1,7 @@
-import ast
-import os
+"""utils"""
 import re
 import json
-import logging
-import datetime
-import xml.etree.ElementTree as ET
 from typing import Dict, Any, List
-
-
 
 
 def extract_json_from_markdown(text):
@@ -32,7 +26,6 @@ def extract_json_from_markdown(text):
     else:
         print("JSON string not found in the text.")
     return None
-
 
 def clean_keys(self, data) -> Dict[str, Any] | List[Dict[str, Any]]:
     """Clean the keys of a Dict"""

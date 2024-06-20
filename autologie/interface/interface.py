@@ -1,7 +1,10 @@
-from autologie.agents.agent_configs import dream_analyst, omniscience, function_calling_agent, knowledge_graph_agent, character_agent
-from autologie.llms.llms import AgentClient
-import gradio as gr
+"""Interface"""
 from typing import TypedDict
+import gradio as gr
+
+from autologie.agent_configs import dream_analyst, omniscience, function_calling_agent, knowledge_graph_agent, character_agent
+from autologie import AgentClient
+
 # Initialize LlmClient instance globally
 class State(TypedDict):
     system_prompt:str
@@ -34,15 +37,15 @@ def initialize_llm(agent_type = "", system_prompt = ""):
 state = initialize_llm()
 def chat(message, history, agent_type, system_prompt, t, m):
     global state
-    
+
     if state['llm'] is None or state['agent_type'] != agent_type or state['system_prompt'] != system_prompt:
         state = initialize_llm(agent_type, system_prompt)
-    
+
     print(message)
     prompt = message['text']  # + read_markdown_file(message['files'][0])  # You can uncomment this if needed
     num_files = len(message["files"])
     print(f"You uploaded {num_files} files")
-    
+
     response = state['llm'].chat(prompt)
     response_str = response.assistant_message
     response = f"{response_str}"# You uploaded {num_files} files\n\nSystem prompt: {system_prompt}\nMessage: {prompt}." + f"Agent config: {state['llm'].response_spec}"
