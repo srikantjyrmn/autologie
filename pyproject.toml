@@ -19,6 +19,8 @@ docstring-parser = "^0.16"
 yfinance = "^0.2.40"
 ragatouille = "^0.0.8.post2"
 pylint = "^3.2.3"
+sqlmodel = "^0.0.19"
+psycopg2-binary = "^2.9.9"
 
 
 [build-system]

@@ -68,8 +68,9 @@ def get_assistant_message(completion, chat_template, eos_token):
 
 class PromptManager:
     """A class to manage prompts for a function calling model."""
-    def __init__(self):
+    def __init__(self, file_name):
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.file_name = file_name
 
     def format_yaml_prompt(self, prompt_schema: PromptSchema, variables: Dict) -> str:
         """Given a PromptSchema with ROle, Instruction etc, format it into a prompt."""
@@ -103,7 +104,7 @@ class PromptManager:
     def generate_prompt(self, user_prompt, tools, num_fewshot=None):
         """Generate the system prompt for a given PromptSchema.
         #Deprecated."""
-        prompt_path = os.path.join(self.script_dir, 'prompt_assets', 'sys_prompt.yml')
+        prompt_path = os.path.join(self.script_dir, 'prompt_assets', self.file_name)
         prompt_schema = self.read_yaml_file(prompt_path)
 
         if num_fewshot is not None:
@@ -131,7 +132,7 @@ class PromptManager:
     def generate_system_prompt(self, tools:List,  system_prompt: str = "", num_fewshot:int =None):
         """Generate the system prompt for a given PromptSchema.
         #TODO"""
-        prompt_path = os.path.join(self.script_dir, 'prompt_assets', 'sys_prompt.yml')
+        prompt_path = os.path.join(self.script_dir, 'prompt_assets', self.file_name)
         prompt_schema = self.read_yaml_file(prompt_path)
 
         if num_fewshot is not None:

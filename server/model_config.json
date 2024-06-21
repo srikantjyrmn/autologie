@@ -1,0 +1,16 @@
+{
+    "host": "0.0.0.0",
+    "port": "8000",
+    "models": [
+        {
+            "model": "./server/Hermes-2-Pro-Mistral-7B.Q6_K.gguf",
+            "model_alias": "nous-hermes",
+            "chat_format": "chatml-function-calling",
+            "n_gpu_layers": -1,
+            "offload_kqv": true,
+            "n_threads": 12,
+            "n_batch": 512,
+            "n_ctx": 8192*2,
+        }
+    ]
+}

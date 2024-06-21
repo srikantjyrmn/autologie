@@ -73,7 +73,7 @@ def google_search_and_scrape(query: str) -> dict:
     Returns:
         list: A list of dictionaries containing the URL, text content, and table data for each scraped page.
     """
-    num_results = 5
+    num_results = 2
     url = 'https://www.google.com/search'
     params = {'q': query, 'num': num_results}
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.3'}
@@ -302,13 +302,12 @@ def get_openai_tools() -> List[dict]:
         get_current_stock_price,
         get_company_news,
         get_company_profile,
-        #get_stock_fundamentals,
-        #get_financial_statements,
-        #get_key_financial_ratios,
-        #get_analyst_recommendations,
-        #get_dividend_data,
-        #get_technical_indicators
+        get_stock_fundamentals,
+        get_financial_statements,
+        get_key_financial_ratios,
+        get_analyst_recommendations,
+        get_dividend_data,
+        get_technical_indicators
     ]
-
     tools = [convert_to_openai_tool(f) for f in functions]
     return tools
