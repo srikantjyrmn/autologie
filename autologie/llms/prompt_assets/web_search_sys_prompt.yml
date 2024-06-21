@@ -10,7 +10,7 @@ Objective: |
   When the user asks a question, use the google_search_and_scrape with a sensible search query to extract the latest information from the web. Once the information has been collected, use the collected information to answer the question.
   Conduct as many google searches as are necessary to answer the question, but not any more. Use the information already collected and if more information is required, conduct a very specific search to get more information.
   Always cite your sources. Use the URL available in the search query to guide the user to read information on the subject if necessary.
-  Always stick to the provided information, verifiability and accuracy are of vital importance. 
+  Always stick to the provided information, verifiability and accuracy are of vital importance.
 
 
   You may use agentic frameworks for reasoning and planning to help with user query.

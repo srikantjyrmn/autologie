@@ -4,12 +4,110 @@ import requests
 import pandas as pd
 import yfinance as yf
 import concurrent.futures
-
+from pydantic import BaseModel, Field, AnyUrl
 from typing import List
 from bs4 import BeautifulSoup
 from autologie.llms.inference_logger import inference_logger
 from langchain.tools import tool
 from langchain_core.utils.function_calling import convert_to_openai_tool
+from duckduckgo_search import DDGS
+class SearchResult(BaseModel):
+    """
+    A search result
+    """
+    query : str = Field(description = "The query to conduct a web search")
+    title: str = Field(
+        description="The title of the search result"
+    )
+    link: str = Field(
+        description="The url of the search result"
+    )
+    body: str = Field(
+        description="The snippet of the search result"
+    )
+    linked_page_text: str = Field(description = "Text of the article linked in the search result.")
+
+def read_url(url: AnyUrl) -> str:
+    """
+    Read the url and return the text
+    """
+    import requests
+    from bs4 import BeautifulSoup
+    url_response = requests.get(url)
+    try:
+        html = url_response.content.decode('utf-8')
+        soup = BeautifulSoup(html, 'html.parser')
+        return soup.get_text()
+    except Exception as e:
+        print(f"Unable to read URL: {url}. Error: {e}")
+        return ""
+
+@tool
+def duckduckgo_search(query) -> List[SearchResult]:
+    """Conducts a web search using duckduckgo and returns a list of search results.
+
+    Args:
+        query (str): The search query to execute.
+
+    Returns:
+        List[SearchResult]: _description_
+    """
+    try:
+        search_results = DDGS().text(query, max_results=1)
+        print(f"Got {len(search_results)} results for the query {query}")
+        print(f"Trying to read them.")
+        search_results_2 = []
+        for result in search_results:
+            title = result['title']
+            link = result['href']
+            body = result['body']
+            linked_page_text = read_url(link)
+            search_results_2.append(SearchResult(query = query, title = title, link = link, body = body, linked_page_text = linked_page_text))
+        return search_results_2
+    except Exception as e:
+        error_message = f"An error occurred: {e}"
+        inference_logger.error(error_message)
+        return error_message
+
+@tool
+def get_wikipedia_page(title: str):
+    """
+    Retrieve the full text content of a Wikipedia page.
+    
+    Args:
+        title (str) : Title of the Wikipedia page.
+    
+    Returns
+        str : Full text content of the page as raw string.
+    """
+    try:
+        # Wikipedia API endpoint
+        URL = "https://en.wikipedia.org/w/api.php"
+
+        # Parameters for the API request
+        params = {
+            "action": "query",
+            "format": "json",
+            "titles": title,
+            "prop": "extracts",
+            "explaintext": True,
+        }
+
+        # Custom User-Agent header to comply with Wikipedia's best practices
+        headers = {
+            "User-Agent": "RAGatouille_tutorial/0.0.1 (ben@clavie.eu)"
+        }
+
+        response = requests.get(URL, params=params, headers=headers)
+        data = response.json()
+
+        # Extracting page content
+        page = next(iter(data['query']['pages'].values()))
+        return page['extract'] if 'extract' in page else None
+    except Exception as e:
+        error_message = f"An error occurred: {e}"
+        inference_logger.error(error_message)
+        return error_message
 
 @tool
 def code_interpreter(code_markdown: str) -> dict | str:

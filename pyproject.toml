@@ -21,6 +21,8 @@ ragatouille = "^0.0.8.post2"
 pylint = "^3.2.3"
 sqlmodel = "^0.0.19"
 psycopg2-binary = "^2.9.9"
+duckduckgo-search = "^6.1.7"
+pgvector = "^0.2.5"
 
 
 [build-system]

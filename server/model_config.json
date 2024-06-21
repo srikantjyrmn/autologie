@@ -10,7 +10,7 @@
             "offload_kqv": true,
             "n_threads": 12,
             "n_batch": 512,
-            "n_ctx": 8192*2,
+            "n_ctx": 16384
         }
     ]
 }

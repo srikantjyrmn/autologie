@@ -101,10 +101,10 @@ class AgentClient:
                 Got Validated Response: {completion_validation}.
                 Returning
                 """)
-                return completion_validation
+                return self.act(completion_validation)
             self.messages.append(ToolMessage(content = completion_validation.assistant_message))
             continue
-        return completion_validation
+        return self.act(completion_validation)
 
     def act(self, completion_validation):
         self.inference_logger.info("Actor says: Acting")
@@ -122,7 +122,7 @@ class AgentClient:
                 tool_message += f"<tool_response> {tool_results} </tool_response>"
                 self.messages.append(ToolMessage(content = tool_message))
             self.validated = False
-            completion_validation = self.reflect()
+            return self.reflect()
         if completion_validation.objects:
             objects = []
             for obj in completion_validation.objects:
@@ -132,6 +132,4 @@ class AgentClient:
 
     def chat(self, message):
         self.listen(message)
-        reflection = self.reflect()
-        response = self.act(reflection)
-        return response
+        return self.reflect()

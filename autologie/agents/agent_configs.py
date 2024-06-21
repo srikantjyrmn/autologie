@@ -5,7 +5,7 @@ from autologie.tools.objects import KnowledgeGraph, Character
 from autologie.llms.prompt_handlers import PromptManager
 from autologie.tools.nous_functions import (
     convert_to_openai_tool,
-    google_search_and_scrape,
+    duckduckgo_search,
     code_interpreter,
     get_openai_tools
 )
@@ -69,14 +69,14 @@ base_function_calling_agent = {
     'tools' : base_agent_tools
 }
 
-coder_agent_tools = [convert_to_openai_tool(google_search_and_scrape), convert_to_openai_tool(code_interpreter)]
+coder_agent_tools = [convert_to_openai_tool(duckduckgo_search), convert_to_openai_tool(code_interpreter)]
 coder_agent = {
     'system_prompt': PromptManager('coder_sys_prompt.yml').generate_system_prompt(tools = coder_agent_tools),
     'response_format': {'type': 'single_function_call'},
     'tools' : coder_agent_tools
 }
 
-web_search_agent_tools = [convert_to_openai_tool(google_search_and_scrape), convert_to_openai_tool(code_interpreter)]
+web_search_agent_tools = [convert_to_openai_tool(duckduckgo_search), convert_to_openai_tool(code_interpreter)]
 web_search_agent = {
     'system_prompt': PromptManager('web_search_sys_prompt.yml').generate_system_prompt(tools = coder_agent_tools),
     'response_format': {'type': 'single_function_call'},
