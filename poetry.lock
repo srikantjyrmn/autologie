@@ -984,6 +984,30 @@ files = [
 tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipython", "littleutils", "pytest", "rich"]
 
 [[package]]
+name = "extruct"
+version = "0.17.0"
+description = "Extract embedded metadata from HTML markup"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "extruct-0.17.0-py2.py3-none-any.whl", hash = "sha256:5f1d8e307fbb0c41f64ce486ddfaf16dc67e4b8f6e9570c57b123409ee37a307"},
+    {file = "extruct-0.17.0.tar.gz", hash = "sha256:a94c0be5b5fd95a8370204ecc02687bd27845d536055d8d1c69a0a30da0420c7"},
+]
+
+[package.dependencies]
+html-text = ">=0.5.1"
+jstyleson = "*"
+lxml = "*"
+lxml-html-clean = "*"
+mf2py = "*"
+pyrdfa3 = "*"
+rdflib = ">=6.0.0"
+w3lib = "*"
+
+[package.extras]
+cli = ["requests"]
+
+[[package]]
 name = "faiss-cpu"
 version = "1.8.0"
 description = "A library for efficient similarity search and clustering of dense vectors."
@@ -1555,6 +1579,21 @@ files = [
 ]
 
 [[package]]
+name = "html-text"
+version = "0.6.2"
+description = "Extract text from HTML"
+optional = false
+python-versions = "*"
+files = [
+    {file = "html_text-0.6.2-py2.py3-none-any.whl", hash = "sha256:d83d619ccd4b4d6172e21084d8a46e29e49ce87a08cc02161e7ca8c2918e7bca"},
+    {file = "html_text-0.6.2.tar.gz", hash = "sha256:81455b4de5430cf63ce7c45a870fb8629e79ca8518e240f172d62409c2f2ff72"},
+]
+
+[package.dependencies]
+lxml = "*"
+lxml-html-clean = "*"
+
+[[package]]
 name = "html5lib"
 version = "1.1"
 description = "HTML parser based on the WHATWG HTML specification"
@@ -1812,6 +1851,20 @@ test = ["pickleshare", "pytest", "pytest-asyncio (<0.22)", "testpath"]
 test-extra = ["curio", "ipython[test]", "matplotlib (!=3.2.0)", "nbformat", "numpy (>=1.23)", "pandas", "trio"]
 
 [[package]]
+name = "isodate"
+version = "0.6.1"
+description = "An ISO 8601 date/time/duration parser and formatter"
+optional = false
+python-versions = "*"
+files = [
+    {file = "isodate-0.6.1-py2.py3-none-any.whl", hash = "sha256:0751eece944162659049d35f4f549ed815792b38793f07cf73381c1c87cbed96"},
+    {file = "isodate-0.6.1.tar.gz", hash = "sha256:48c5881de7e8b0a0d648cb024c8062dc84e7b840ed81e864c7614fd3c127bde9"},
+]
+
+[package.dependencies]
+six = "*"
+
+[[package]]
 name = "isort"
 version = "5.13.2"
 description = "A Python utility / library to sort Python imports."
@@ -1942,6 +1995,16 @@ files = [
 
 [package.dependencies]
 referencing = ">=0.31.0"
+
+[[package]]
+name = "jstyleson"
+version = "0.0.2"
+description = "Library to parse JSON with js-style comments."
+optional = false
+python-versions = "*"
+files = [
+    {file = "jstyleson-0.0.2.tar.gz", hash = "sha256:680003f3b15a2959e4e6a351f3b858e3c07dd3e073a0d54954e34d8ea5e1308e"},
+]
 
 [[package]]
 name = "jupyter-client"
@@ -2685,6 +2748,20 @@ htmlsoup = ["BeautifulSoup4"]
 source = ["Cython (>=3.0.10)"]
 
 [[package]]
+name = "lxml-html-clean"
+version = "0.1.1"
+description = "HTML cleaner from lxml project"
+optional = false
+python-versions = "*"
+files = [
+    {file = "lxml_html_clean-0.1.1-py3-none-any.whl", hash = "sha256:58c04176593c9caf72ec92e033d2f38859e918b3eff0cc0f8051ad27dc2ab8ef"},
+    {file = "lxml_html_clean-0.1.1.tar.gz", hash = "sha256:8a644ed01dbbe132fabddb9467f077f6dad12a1d4f3a6a553e280f3815fa46df"},
+]
+
+[package.dependencies]
+lxml = "*"
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -2883,6 +2960,22 @@ files = [
     {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
     {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
+
+[[package]]
+name = "mf2py"
+version = "2.0.1"
+description = "Microformats parser"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "mf2py-2.0.1-py3-none-any.whl", hash = "sha256:092806e17f1a93db4aafa5e8d3c4124b5e42cd89027e2db48a5248ef4eabde03"},
+    {file = "mf2py-2.0.1.tar.gz", hash = "sha256:1380924633413b8d72e704b5c86b4382c4b1371699edecc907b01cd21138d7cd"},
+]
+
+[package.dependencies]
+beautifulsoup4 = ">=4.11.1,<5.0.0"
+html5lib = ">=1.1,<2.0"
+requests = ">=2.28.2,<3.0.0"
 
 [[package]]
 name = "mkl"
@@ -4139,6 +4232,22 @@ full = ["Pillow (>=8.0.0)", "PyCryptodome", "cryptography"]
 image = ["Pillow (>=8.0.0)"]
 
 [[package]]
+name = "pyrdfa3"
+version = "3.6.2"
+description = "pyRdfa distiller/parser library"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pyRdfa3-3.6.2-py3-none-any.whl", hash = "sha256:290c2fa966ddd1b45ac94a727da144f5a233ed58c63c370e3d68e6d00b0dee5d"},
+    {file = "pyRdfa3-3.6.2.tar.gz", hash = "sha256:73681dab957f60901696767388b956a5769c730bc451da6ffb2f0e36f18314c2"},
+]
+
+[package.dependencies]
+html5lib = ">=1.1"
+rdflib = ">=6.1.1"
+requests = ">=2.25.1"
+
+[[package]]
 name = "pyreqwest-impersonate"
 version = "0.4.8"
 description = "HTTP client that can impersonate web browsers, mimicking their headers and `TLS/JA3/JA4/HTTP2` fingerprints"
@@ -4458,6 +4567,27 @@ srsly = "2.4.8"
 torch = ">=1.13"
 transformers = ">=4.36.2,<5.0.0"
 voyager = ">=2.0.2,<3.0.0"
+
+[[package]]
+name = "rdflib"
+version = "7.0.0"
+description = "RDFLib is a Python library for working with RDF, a simple yet powerful language for representing information."
+optional = false
+python-versions = ">=3.8.1,<4.0.0"
+files = [
+    {file = "rdflib-7.0.0-py3-none-any.whl", hash = "sha256:0438920912a642c866a513de6fe8a0001bd86ef975057d6962c79ce4771687cd"},
+    {file = "rdflib-7.0.0.tar.gz", hash = "sha256:9995eb8569428059b8c1affd26b25eac510d64f5043d9ce8c84e0d0036e995ae"},
+]
+
+[package.dependencies]
+isodate = ">=0.6.0,<0.7.0"
+pyparsing = ">=2.1.0,<4"
+
+[package.extras]
+berkeleydb = ["berkeleydb (>=18.1.0,<19.0.0)"]
+html = ["html5lib (>=1.0,<2.0)"]
+lxml = ["lxml (>=4.3.0,<5.0.0)"]
+networkx = ["networkx (>=2.0.0,<3.0.0)"]
 
 [[package]]
 name = "referencing"
@@ -5285,6 +5415,23 @@ files = [
 ]
 
 [[package]]
+name = "structlog"
+version = "24.2.0"
+description = "Structured Logging for Python"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "structlog-24.2.0-py3-none-any.whl", hash = "sha256:983bd49f70725c5e1e3867096c0c09665918936b3db27341b41d294283d7a48a"},
+    {file = "structlog-24.2.0.tar.gz", hash = "sha256:0e3fe74924a6d8857d3f612739efb94c72a7417d7c7c008d12276bca3b5bf13b"},
+]
+
+[package.extras]
+dev = ["freezegun (>=0.2.8)", "mypy (>=1.4)", "pretend", "pytest (>=6.0)", "pytest-asyncio (>=0.17)", "rich", "simplejson", "twisted"]
+docs = ["furo", "myst-parser", "sphinx", "sphinx-notfound-page", "sphinxcontrib-mermaid", "sphinxext-opengraph", "twisted"]
+tests = ["freezegun (>=0.2.8)", "pretend", "pytest (>=6.0)", "pytest-asyncio (>=0.17)", "simplejson"]
+typing = ["mypy (>=1.4)", "rich", "twisted"]
+
+[[package]]
 name = "sympy"
 version = "1.12.1"
 description = "Computer algebra system (CAS) in Python"
@@ -5987,6 +6134,17 @@ files = [
 numpy = "*"
 
 [[package]]
+name = "w3lib"
+version = "2.2.1"
+description = "Library of web-related functions"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "w3lib-2.2.1-py3-none-any.whl", hash = "sha256:e56d81c6a6bf507d7039e0c95745ab80abd24b465eb0f248af81e3eaa46eb510"},
+    {file = "w3lib-2.2.1.tar.gz", hash = "sha256:756ff2d94c64e41c8d7c0c59fea12a5d0bc55e33a531c7988b4a163deb9b07dd"},
+]
+
+[[package]]
 name = "watchdog"
 version = "4.0.1"
 description = "Filesystem events monitoring"
@@ -6565,4 +6723,4 @@ repair = ["scipy (>=1.6.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "29dc2c70135495c9976177a479d10648d13b2d9fdc0a40975d22d4882a0870ac"
+content-hash = "afc5f69c41d9613f4568c307493a3effc904119b124b95132992d70d90df1888"

@@ -23,6 +23,8 @@ sqlmodel = "^0.0.19"
 psycopg2-binary = "^2.9.9"
 duckduckgo-search = "^6.1.7"
 pgvector = "^0.2.5"
+extruct = "^0.17.0"
+structlog = "^24.2.0"
 
 
 [build-system]

@@ -2,3 +2,4 @@
 *__pycache__*
 *.*_*
 */llama_cpp_server_env/*
+*.db

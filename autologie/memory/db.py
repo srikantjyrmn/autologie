@@ -127,9 +127,7 @@ def basic_things():
         print("Created agent:", simpe_agent)
         print("Created user:", user)
         print("Created convo:", conversation)
-        
         print("Created convo:", message)
-        
 
 def main():
     #create_db_and_tables()
